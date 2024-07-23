@@ -51,7 +51,6 @@ jobs:
         key: ${{secrets.VPS_KEY}}
         port: ${{secrets.VPS_PORT}}
         script: |
-          cd /home/kursant/docker
           sudo docker pull ${{secrets.DOCKER_USERNAME}}/cwiczenie1_docker:latest
           (sudo docker stop cwiczenie1_docker && sudo docker rm cwiczenie1_docker) || true 
           sudo docker run -d --name cwiczenie1_docker -p 80:80 ${{secrets.DOCKER_USERNAME}}/cwiczenie1_docker:latest
