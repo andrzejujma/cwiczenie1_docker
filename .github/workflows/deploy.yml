@@ -12,6 +12,8 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
  
+ 
+ 
     - name: Docker Buildx
       uses: docker/setup-buildx-action@v1
  
@@ -35,6 +37,12 @@ jobs:
     - name: Checkout repository
       uses: actions/checkout@v2
  
+    # - name: Decode SSH key
+    #   run: echo "${{secrets.VPS_KEY}}" > /tmp/deploy_key.pem
+ 
+    # - name: Permissons
+    #   run: chmod 600 /tmp/deploy_key.pem
+ 
     - name: Deploy to VPS
       uses: appleboy/ssh-action@master
       with: 
@@ -44,7 +52,7 @@ jobs:
         port: ${{secrets.VPS_PORT}}
         script: |
           cd /home/kursant/docker
-          docker pull ${{secrets.DOCKER_USERNAME}}/cwiczenia_docker:latest
-          docker stop cwiczenie1_docker || true
-          docker rm cwiczenie1_docker || true 
-          docker run -d --name cwiczenie1_docker -p 80:80 {{secrets.DOCKER_USERNAME}}/cwiczenie1_docker:latest
+          sudo docker pull ${{secrets.DOCKER_USERNAME}}/cwiczenia_docker:latest
+          sudo docker stop cwiczenie1_docker || true
+          sudo docker rm cwiczenie1_docker || true 
+          sudo docker run -d --name cwiczenie1_docker -p 80:80 {{secrets.DOCKER_USERNAME}}/cwiczenie1_docker:latest
